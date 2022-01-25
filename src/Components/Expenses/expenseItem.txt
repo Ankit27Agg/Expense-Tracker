@@ -1,0 +1,85 @@
+import './ExpenseItem.css'
+import ExpenseDate from './ExpenseDate.js';
+import React, {useState} from "react";
+import Card from '../UI/Card.js'
+
+const ExpenseItem = props => { //props is an object which will contain data in key value pairs
+
+  // useState();//this will take argument as the value which we want to change in future
+    //and this will return an array containing that  variable whose value we need to change
+    //and a function which will help us in changing that variable's value
+
+
+  const [title, setTitle] = useState(props.title);
+  //title is variable which we get during array destructuring
+
+
+  // let [newTitle, setNewTitle] = useState('asd');
+  let [newTitle, setNewTitle] = useState('');
+
+  const clickHandler = () => {
+    // props.title='new title' //but this function will only change title here
+    //after changing of value of title react will not rerender our page, so we use useState
+
+    // setTitle('new title') //this will take an argument, means the value which we need to place in variable 
+    setTitle(newTitle)
+  }
+
+  const changeHandler = (event) => {
+    setNewTitle(event.target.value)
+  }
+
+
+  // let title = "Car Insurance";
+
+  // console.log('hi') //this will print when ever this will be called as an component(eg; first in App.js then in index.js bcz of App.js)
+  // console.log(typeof day) //string
+  return(
+      // <div className="expense-item">
+      //   <ExpenseDate date={props.date}/>
+      //   <div className="expense-item__description">
+      //     {/* <h2>Car Insurance</h2> */}
+      //     <h2>{props.title}</h2> 
+      //     {/* using {} we can type javascript in {} */}
+      //     <div className="expense-item__price">{props.price}</div>
+      //   </div>
+      // </div>
+
+
+      // <Card>
+      // <div className="expense-item">
+      //   <ExpenseDate date={props.date}/>
+      //   <div className="expense-item__description">
+      //     {/* <h2>Car Insurance</h2> */}
+      //     <h2>{props.title}</h2> 
+      //     {/* using {} we can type javascript in {} */}
+      //     <div className="expense-item__price">{props.price}</div>
+      //   </div>
+      // </div>
+      // </Card>
+      //above method can also be done for making all classes working
+
+
+      <Card className="expense-item"> 
+      {/* //here this class is not working bcz here Card component will come */}
+      {/* so use classes also as a props */}
+        <ExpenseDate date={props.date}/>
+        <div className="expense-item__description">
+          {/* <h2>Car Insurance</h2> */}
+          <h2>{title}</h2> 
+          {/* using {} we can type javascript in {} */}
+          <div className="expense-item__price">${props.price}</div>
+        </div>
+        <input type='text' placeholder='type here' value={newTitle} onChange={changeHandler}/> 
+        {/* in above statement we are mentioning value to set it equal to newTitle.
+          But now we are unable to press any key on input field so how we will type/update our value
+          So we uses events  */}
+        <button onClick={clickHandler}>Change Title</button>
+      </Card>
+
+    //here we can't add our content in Card component 
+    //we need to call it as props.child in card component file
+  );
+}
+
+export default ExpenseItem;
